@@ -132,7 +132,7 @@ fi
 # INSTALL: brews
 ###############################################################################
 
-if [ -e $cwd/stages/brews ]; then
+if [ -e $cwd/stages/brews ] && [ -s $cwd/stages/brews ]; then
 	chapter "Installing Homebrew formulae…"
 
 	for brew in $(<$cwd/stages/brews); do
@@ -151,7 +151,7 @@ brew update
 # INSTALL: casks
 ###############################################################################
 
-if [ -e $cwd/stages/casks ]; then
+if [ -e $cwd/stages/casks ] && [ -s $cwd/stages/casks ]; then
 	chapter "Installing apps via Homebrew…"
 
 	for cask in $(<$cwd/stages/casks); do
@@ -163,12 +163,12 @@ fi
 # INSTALL: Mac App Store Apps
 ###############################################################################
 
-chapter "Installing apps from App Store…"
+if [ -e $cwd/stages/apps ] && [ -s $cwd/stages/apps ]; then
+	chapter "Installing apps from App Store…"
 
-if [ -x mas ]; then
-	print_warning "Please install mas-cli first: brew mas. Skipping."
-else
-	if [ -e $cwd/stages/apps ]; then
+	if [ -x mas ]; then
+		print_warning "Please install mas-cli first: brew mas. Skipping."
+	else
 		if mas_setup; then
 			# Workaround for associative array in Bash 3
 			# https://stackoverflow.com/questions/6047648/bash-4-associative-arrays-error-declare-a-invalid-option
