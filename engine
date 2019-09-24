@@ -573,6 +573,29 @@ install_npm_packages() {
 	fi
 }
 
+install_asdf_plugin() {
+    if ! asdf plugin-list | grep -Fq "$1"; then
+        echo_install "Installing $1"
+        asdf plugin-add "$1" "$2" > /dev/null
+        print_in_green "${bold}✓ installed!${normal}\n"
+    else
+        print_success_muted "$1 already installed. Skipped."
+    fi
+}
+
+install_asdf_language() {
+    local version="$(asdf list-all "$1" 2> /dev/null | grep -v "[a-z]" | tail -1)"
+
+    if ! asdf list "$1" | grep -Fq "$version"; then
+        echo_install "Installing latest $1 ($version)"
+        asdf install "$1" "$version" > /dev/null
+        asdf global "$1" "$version"
+        print_in_green "${bold}✓ installed!${normal}\n"
+    else
+        print_success_muted "$1 ($version) already installed. Skipped."
+    fi
+}
+
 # The releases are returned in the format
 # {"id":3622206,"tag_name":"hello-1.0.0.11",…}
 # we have to extract the tag_name.

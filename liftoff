@@ -191,6 +191,28 @@ chapter "Cleaning up Homebrew files…"
 brew cleanup 2> /dev/null
 
 ###############################################################################
+# INSTALL: ASDF plugins
+###############################################################################
+
+chapter "Installing ASDF plugins…"
+source $(brew --prefix asdf)/asdf.sh
+
+install_asdf_plugin "ruby" "https://github.com/asdf-vm/asdf-ruby.git"
+install_asdf_plugin "nodejs" "https://github.com/asdf-vm/asdf-nodejs.git"
+install_asdf_plugin "elixir" "https://github.com/asdf-vm/asdf-elixir.git"
+
+###############################################################################
+# INSTALL: ASDF languages
+###############################################################################
+
+chapter "Installing ASDF languages…"
+bash "$HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring" &> /dev/null
+
+install_asdf_language "ruby"
+install_asdf_language "nodejs"
+install_asdf_language "elixir"
+
+###############################################################################
 # OPTIONAL: Customizations
 ###############################################################################
 
