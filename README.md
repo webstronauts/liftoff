@@ -55,6 +55,7 @@ The setup process will install:
 <summary>CLI Tools & Utilities:</summary>
 
 * [ASDF](https://asdf-vm.com/) for managing programming language versions.
+* [Overmind](https://github.com/DarthSim/overmind)  Process manager for Procfile-based applications.
 * [mas](https://github.com/mas-cli/mas) Mac App Store command line interface.
 </details>
 
